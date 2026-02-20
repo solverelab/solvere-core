@@ -1,0 +1,35 @@
+id: KrtS_48_reservkapital
+version: "1.0"
+title: "Reservkapitali minimaalne suurus"
+
+jurisdiction: EE
+domain: korteriühistu
+source_text: "KrtS § 48"
+effective_from: "2018-01-01"
+effective_to: null
+
+required_facts:
+  - annual_costs_planned
+  - reserve_fund_end
+
+applicability:
+  conditions:
+    - fact: entity_type
+      operator: equals
+      value: korteriühistu
+
+obligations:
+  - type: minimum_balance
+    target: reserve_fund_end
+    formula: "annual_costs_planned / 12"
+    description: "Reservkapital peab olema vähemalt 1/12 aasta eeldatavatest kuludest"
+
+violation:
+  severity: warning
+  message_et: "Reservkapital perioodi lõpus on alla seadusliku miinimumi."
+  message_en: "Reserve fund at period end is below legal minimum."
+  remedy_et: "Tõsta reservkapitali laekumisi või vähenda planeeritud kulutusi."
+
+related_norms:
+  - KrtS_41_1_4
+  - KrtS_40_1

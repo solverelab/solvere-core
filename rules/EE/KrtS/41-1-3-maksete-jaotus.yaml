@@ -1,0 +1,38 @@
+id: KrtS_41_1_3_maksete_jaotus
+version: "1.0"
+title: "Korteriomanike maksete jaotus pindala alusel"
+
+jurisdiction: EE
+domain: korteriühistu
+source_text: "KrtS § 41 lg 1 p 3"
+effective_from: "2018-01-01"
+effective_to: null
+
+required_facts:
+  - units
+  - total_area_included
+
+applicability:
+  conditions:
+    - fact: entity_type
+      operator: equals
+      value: korteriühistu
+
+obligations:
+  - type: area_sum_positive
+    description: "Jaotuse aluseks olev pindala summa peab olema suurem kui null"
+    check: "total_area_included > 0"
+
+  - type: proportional_distribution
+    description: "Iga korteriomaniku makse on proportsionaalne hooneosa pindalaga"
+    formula: "payment = total_costs * (unit_area / total_area_included)"
+
+exceptions:
+  - condition: "articles_of_association_override == true"
+    description: "Erinev jaotus on lubatud kui põhikiri või kokkulepe seda ette näeb (KrtS § 40 lg 2)"
+    requires_documentation: true
+
+violation:
+  severity: blocking
+  message_et: "Jaotuse aluseks oleva pindala summa on null – makseid ei saa arvutada."
+  remedy_et: "Lisa hooneosad ja sisesta pindalad."

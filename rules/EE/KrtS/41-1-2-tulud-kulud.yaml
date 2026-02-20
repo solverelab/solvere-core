@@ -1,0 +1,23 @@
+id: KrtS_41_1_2_tulud_kulud
+version: "1.0"
+title: "Tulude ja kulude tasakaal"
+
+jurisdiction: EE
+domain: korteriühistu
+source_text: "KrtS § 41 lg 1 p 2"
+effective_from: "2018-01-01"
+effective_to: null
+
+required_facts:
+  - running_costs_planned
+  - invest_costs_planned
+
+obligations:
+  - type: balance_check
+    description: "Aasta eeldatavad kulud kokku"
+    formula: "annual_costs_planned = running_costs_planned + invest_costs_planned"
+
+violation:
+  severity: warning
+  message_et: "Kulud ületavad planeeritud tulusid."
+  remedy_et: "Suurenda tulusid või vähenda planeeritud kulutusi."
